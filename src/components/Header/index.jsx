@@ -1,8 +1,13 @@
-import {useState, useEffect} from 'react';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import './Header.css';
 
 const convertCurrency = (amount, fromCurrency, toCurrency, rates) => {
+
+  if (amount < 0) {
+    return 0;
+  }
+
   const fromRate = rates[fromCurrency];
   const toRate = rates[toCurrency];
   const convertedAmount = (amount * (toRate / fromRate));
@@ -52,7 +57,7 @@ const Header = () => {
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
         </select>
-        <input type="number" value={fromValue} onChange={handleFromValueChange} />
+        <input type="number" value={fromValue} onChange={handleFromValueChange} min="0" />
       </div>
       <div className='container__section'>
         <select value={toCurrency} onChange={handleToCurrencyChange}>
@@ -60,7 +65,7 @@ const Header = () => {
           <option value="USD">USD</option>
           <option value="EUR">EUR</option>
         </select>
-        <input type="number" value={toValue} onChange={handleToValueChange} />
+        <input type="number" value={toValue} onChange={handleToValueChange} min="0" />
       </div>
     </div>
   );
