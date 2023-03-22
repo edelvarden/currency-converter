@@ -1,18 +1,29 @@
-.container {
+.App {
   max-width: 728px;
   margin: 0 auto;
   padding: 1em;
+}
+
+h1 {
+  text-align: center;
+}
+
+.container {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
 }
 
 .container__section {
   padding: 1em;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr;
 }
 
 input, select {
   display: flex;
-  width: 100%;
+  margin-bottom: 1em;
 }
 
 /* Style for input */
@@ -32,7 +43,6 @@ input {
 input:focus {
   outline-color: #80bdff;
   outline-offset: 2px;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(128, 189, 255, 0.5);
 }
 
 /* Style for select */
@@ -54,5 +64,4 @@ select {
 select:focus {
   outline-color: #80bdff;
   outline-offset: 2px;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(128, 189, 255, 0.5);
 }

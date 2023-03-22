@@ -4,7 +4,8 @@ import Header from './components/Header';
 function App() {
   return (
     <div className="App">
-      <Header></Header>
+        <h1>Currency converter</h1>
+        <Header />
     </div>
   )
 }
