@@ -1,11 +1,12 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
+import './Header.css';
 
 const convertCurrency = (amount, fromCurrency, toCurrency, rates) => {
   const fromRate = rates[fromCurrency];
   const toRate = rates[toCurrency];
   const convertedAmount = (amount * (toRate / fromRate));
-  return convertedAmount;
+  return convertedAmount.toFixed(3);
 };
 
 const Header = () => {
