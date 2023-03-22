@@ -1,5 +1,12 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import {useState, useEffect} from 'react';
+import axios from 'axios';
+
+const convertCurrency = (amount, fromCurrency, toCurrency, rates) => {
+  const fromRate = rates[fromCurrency];
+  const toRate = rates[toCurrency];
+  const convertedAmount = (amount * (toRate / fromRate));
+  return convertedAmount;
+};
 
 const Header = () => {
   const [currencyRates, setCurrencyRates] = useState({});
@@ -18,20 +25,22 @@ const Header = () => {
 
   const handleFromCurrencyChange = (event) => {
     setFromCurrency(event.target.value);
+    setToValue(convertCurrency(fromValue, event.target.value, toCurrency, currencyRates));
   };
 
   const handleToCurrencyChange = (event) => {
     setToCurrency(event.target.value);
+    setFromValue(convertCurrency(toValue, event.target.value, fromCurrency, currencyRates));
   };
 
   const handleFromValueChange = (event) => {
     setFromValue(event.target.value);
-    setToValue((event.target.value * (currencyRates[toCurrency] / currencyRates[fromCurrency])).toFixed(3));
+    setToValue(convertCurrency(event.target.value, fromCurrency, toCurrency, currencyRates));
   };
 
   const handleToValueChange = (event) => {
     setToValue(event.target.value);
-    setFromValue((event.target.value * (currencyRates[fromCurrency] / currencyRates[toCurrency])).toFixed(3));
+    setFromValue(convertCurrency(event.target.value, toCurrency, fromCurrency, currencyRates));
   };
 
   return (
@@ -55,5 +64,6 @@ const Header = () => {
     </div>
   );
 };
+
 
 export default Header;
