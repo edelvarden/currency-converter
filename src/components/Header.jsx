@@ -44,8 +44,8 @@ const Header = () => {
   };
 
   return (
-    <div>
-      <div>
+    <div className='container'>
+      <div className='container__section'>
         <select value={fromCurrency} onChange={handleFromCurrencyChange}>
           <option value="UAH">UAH</option>
           <option value="USD">USD</option>
@@ -53,7 +53,7 @@ const Header = () => {
         </select>
         <input type="number" value={fromValue} onChange={handleFromValueChange} />
       </div>
-      <div>
+      <div className='container__section'>
         <select value={toCurrency} onChange={handleToCurrencyChange}>
           <option value="UAH">UAH</option>
           <option value="USD">USD</option>
