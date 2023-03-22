@@ -10,8 +10,8 @@ const convertCurrency = (amount, fromCurrency, toCurrency, rates) => {
 
 const Header = () => {
   const [currencyRates, setCurrencyRates] = useState({});
-  const [fromCurrency, setFromCurrency] = useState("UAH");
-  const [toCurrency, setToCurrency] = useState("USD");
+  const [fromCurrency, setFromCurrency] = useState("USD");
+  const [toCurrency, setToCurrency] = useState("UAH");
   const [fromValue, setFromValue] = useState(0);
   const [toValue, setToValue] = useState(0);
 

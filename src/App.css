@@ -1,11 +1,7 @@
 .App {
-  max-width: 728px;
   margin: 0 auto;
+  max-width: 728px;
   padding: 1em;
-}
-
-h1 {
-  text-align: center;
 }
 
 .container {
@@ -14,54 +10,48 @@ h1 {
   grid-template-rows: 1fr 1fr;
 }
 
-.container__section {
-  padding: 1em;
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr;
+@media screen and (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
 }
 
-input, select {
+.container__section {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  padding: 1em;
+}
+
+.main-header {
+  text-align: center;
+}
+
+.container__section :is(input, select) {
   display: flex;
   margin-bottom: 1em;
 }
 
-/* Style for input */
-input {
+.container__section :is(input, select) {
+  background-clip: padding-box;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  color: #495057;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
   padding: 0.5rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-input:focus {
+.container__section :is(input, select):focus {
   outline-color: #80bdff;
   outline-offset: 2px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(128, 189, 255, 0.5);
 }
 
-/* Style for select */
-select {
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
-  background-image: none;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+.container__section select {
   appearance: none;
-}
-
-select:focus {
-  outline-color: #80bdff;
-  outline-offset: 2px;
+  background-image: none;
 }
