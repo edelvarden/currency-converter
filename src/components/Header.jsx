@@ -26,12 +26,12 @@ const Header = () => {
 
   const handleFromValueChange = (event) => {
     setFromValue(event.target.value);
-    setToValue((event.target.value * (currencyRates[toCurrency] / currencyRates[fromCurrency])));
+    setToValue((event.target.value * (currencyRates[toCurrency] / currencyRates[fromCurrency])).toFixed(3));
   };
 
   const handleToValueChange = (event) => {
     setToValue(event.target.value);
-    setFromValue((event.target.value * (currencyRates[fromCurrency] / currencyRates[toCurrency])));
+    setFromValue((event.target.value * (currencyRates[fromCurrency] / currencyRates[toCurrency])).toFixed(3));
   };
 
   return (
