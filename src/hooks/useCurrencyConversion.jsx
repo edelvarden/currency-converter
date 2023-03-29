@@ -7,6 +7,7 @@ const useCurrencyConversion = (amount = 0, fromCurrency, toCurrency, rates) => {
     const fromRate = rates[fromCurrency];
     const toRate = rates[toCurrency];
     const convertedAmount = (amount * (toRate / fromRate));
+    
     return convertedAmount.toFixed(3);
 };
 
