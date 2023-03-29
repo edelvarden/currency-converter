@@ -1,45 +1,59 @@
 import CurrencySection from 'components/CurrencySection';
 import useCurrencyConversion from 'hooks/useCurrencyConversion';
-import { useState } from 'react';
 import useGetExchangeRates from 'hooks/useGetExchangeRates';
+import { useState } from 'react';
 import './Header.css';
 
 const Header = () => {
+  // all rates
   const currencyRates = useGetExchangeRates();
-  const currencyes = Object.keys(currencyRates);
-  // const currencyes = ['UAH', 'USD', 'EUR'];
+
+  // all currencies
+  const currencies = Object.keys(currencyRates);
+  // const currencies = ['UAH', 'USD', 'EUR'];
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("UAH");
   const [fromValue, setFromValue] = useState(0);
   const [toValue, setToValue] = useState(0);
 
-  const handleFromCurrencyChange = (event) => {
-    setFromCurrency(event.target.value);
-    setToValue(useCurrencyConversion(fromValue, event.target.value, toCurrency, currencyRates));
+  const handleCurrencyChange = (event, type) => {
+    if (type === 'from') {
+      setFromCurrency(event.target.value);
+      setToValue(useCurrencyConversion(fromValue, event.target.value, toCurrency, currencyRates));
+    } else {
+      setToCurrency(event.target.value);
+      setFromValue(useCurrencyConversion(toValue, event.target.value, fromCurrency, currencyRates));
+    }
   };
 
-  const handleToCurrencyChange = (event) => {
-    setToCurrency(event.target.value);
-    setFromValue(useCurrencyConversion(toValue, event.target.value, fromCurrency, currencyRates));
+  const handleValueChange = (event, type) => {
+    if (type === 'from') {
+      setFromValue(event.target.value);
+      setToValue(useCurrencyConversion(event.target.value, fromCurrency, toCurrency, currencyRates));
+    } else {
+      setToValue(event.target.value);
+      setFromValue(useCurrencyConversion(event.target.value, toCurrency, fromCurrency, currencyRates));
+    }
   };
 
-  const handleFromValueChange = (event) => {
-    setFromValue(event.target.value);
-    setToValue(useCurrencyConversion(event.target.value, fromCurrency, toCurrency, currencyRates));
-  };
-
-  const handleToValueChange = (event) => {
-    setToValue(event.target.value);
-    setFromValue(useCurrencyConversion(event.target.value, toCurrency, fromCurrency, currencyRates));
-  };
+  const CurrencyGroup = ({type}) => {
+    return (
+      <CurrencySection 
+        currencies={currencies} 
+        defaultCurrency={type === 'from' ? fromCurrency : toCurrency} 
+        value={type === 'from' ? fromValue : toValue} 
+        onCurrencyChange={(event) => handleCurrencyChange(event, type)} 
+        onValueChange={(event) => handleValueChange(event, type)} 
+      />
+    )
+  }
 
   return (
     <div className='container'>
-      <CurrencySection currencies={currencyes} defaultCurrency={'UAH'} value={fromValue} onCurrencyChange={handleFromCurrencyChange} onValueChange={handleFromValueChange} />
-      <CurrencySection currencies={currencyes} defaultCurrency={'USD'} value={toValue} onCurrencyChange={handleToCurrencyChange} onValueChange={handleToValueChange} />
+      <CurrencyGroup type="from" />
+      <CurrencyGroup type="to" />
     </div>
   );
 };
-
 
 export default Header;
