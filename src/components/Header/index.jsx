@@ -15,50 +15,22 @@ const Header = () => {
 
   const handleFromCurrencyChange = (event) => {
     setFromCurrency(event.target.value)
-    setToValue(
-      useCurrencyConversion(
-        fromValue,
-        event.target.value,
-        toCurrency,
-        currencyRates
-      )
-    )
+    setToValue(useCurrencyConversion(fromValue, event.target.value, toCurrency, currencyRates))
   }
 
   const handleToCurrencyChange = (event) => {
     setToCurrency(event.target.value)
-    setFromValue(
-      useCurrencyConversion(
-        toValue,
-        event.target.value,
-        fromCurrency,
-        currencyRates
-      )
-    )
+    setFromValue(useCurrencyConversion(toValue, event.target.value, fromCurrency, currencyRates))
   }
 
   const handleFromValueChange = (event) => {
     setFromValue(event.target.value)
-    setToValue(
-      useCurrencyConversion(
-        event.target.value,
-        fromCurrency,
-        toCurrency,
-        currencyRates
-      )
-    )
+    setToValue(useCurrencyConversion(event.target.value, fromCurrency, toCurrency, currencyRates))
   }
 
   const handleToValueChange = (event) => {
     setToValue(event.target.value)
-    setFromValue(
-      useCurrencyConversion(
-        event.target.value,
-        toCurrency,
-        fromCurrency,
-        currencyRates
-      )
-    )
+    setFromValue(useCurrencyConversion(event.target.value, toCurrency, fromCurrency, currencyRates))
   }
 
   const handleSwitchValues = () => {
@@ -93,12 +65,7 @@ const Header = () => {
           <select value={fromCurrency} onChange={handleFromCurrencyChange}>
             {currencyOptions}
           </select>
-          <input
-            type="number"
-            value={fromValue}
-            onChange={handleFromValueChange}
-            min="0"
-          />
+          <input type="number" value={fromValue} onChange={handleFromValueChange} min="0" />
         </div>
         <button className="switch-button" onClick={handleSwitchValues}>
           <img src="icons/switch.svg" alt="switcher" />
@@ -107,12 +74,7 @@ const Header = () => {
           <select value={toCurrency} onChange={handleToCurrencyChange}>
             {currencyOptions}
           </select>
-          <input
-            type="number"
-            value={toValue}
-            onChange={handleToValueChange}
-            min="0"
-          />
+          <input type="number" value={toValue} onChange={handleToValueChange} min="0" />
         </div>
       </div>
     </>
