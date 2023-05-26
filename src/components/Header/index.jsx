@@ -51,7 +51,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="currency-section">
+      <div className="description-section">
         <label className="from-description">
           {fromValue} {getCurrencyName(fromCurrency)} <span>equals</span>
         </label>
