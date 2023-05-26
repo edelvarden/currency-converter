@@ -1,55 +1,122 @@
-import useGetExchangeRates from 'hooks/useGetExchangeRates';
-import { useState } from 'react';
-import useCurrencyConversion from 'hooks/useCurrencyConversion';
-import './Header.css';
+import useCurrencyConversion from "hooks/useCurrencyConversion"
+import useGetExchangeRates from "hooks/useGetExchangeRates"
+import { useState } from "react"
+import { getCurrencyName } from "services/getCurrencyName"
+import "./Header.css"
 
 const Header = () => {
-  const currencyRates = useGetExchangeRates();
-  const currencyNames = Object.keys(currencyRates);
-  const [fromCurrency, setFromCurrency] = useState("USD");
-  const [toCurrency, setToCurrency] = useState("UAH");
-  const [fromValue, setFromValue] = useState(0);
-  const [toValue, setToValue] = useState(0);
+  const currencyRates = useGetExchangeRates()
+  const currencyNames = Object.keys(currencyRates)
+
+  const [fromCurrency, setFromCurrency] = useState("USD")
+  const [toCurrency, setToCurrency] = useState("UAH")
+  const [fromValue, setFromValue] = useState(0)
+  const [toValue, setToValue] = useState(0)
 
   const handleFromCurrencyChange = (event) => {
-    setFromCurrency(event.target.value);
-    setToValue(useCurrencyConversion(fromValue, event.target.value, toCurrency, currencyRates));
-  };
+    setFromCurrency(event.target.value)
+    setToValue(
+      useCurrencyConversion(
+        fromValue,
+        event.target.value,
+        toCurrency,
+        currencyRates
+      )
+    )
+  }
 
   const handleToCurrencyChange = (event) => {
-    setToCurrency(event.target.value);
-    setFromValue(useCurrencyConversion(toValue, event.target.value, fromCurrency, currencyRates));
-  };
+    setToCurrency(event.target.value)
+    setFromValue(
+      useCurrencyConversion(
+        toValue,
+        event.target.value,
+        fromCurrency,
+        currencyRates
+      )
+    )
+  }
 
   const handleFromValueChange = (event) => {
-    setFromValue(event.target.value);
-    setToValue(useCurrencyConversion(event.target.value, fromCurrency, toCurrency, currencyRates));
-  };
+    setFromValue(event.target.value)
+    setToValue(
+      useCurrencyConversion(
+        event.target.value,
+        fromCurrency,
+        toCurrency,
+        currencyRates
+      )
+    )
+  }
 
   const handleToValueChange = (event) => {
-    setToValue(event.target.value);
-    setFromValue(useCurrencyConversion(event.target.value, toCurrency, fromCurrency, currencyRates));
-  };
+    setToValue(event.target.value)
+    setFromValue(
+      useCurrencyConversion(
+        event.target.value,
+        toCurrency,
+        fromCurrency,
+        currencyRates
+      )
+    )
+  }
 
-  const currencyOptions = currencyNames.map((currencyName, key) => <option key={key} value={currencyName.toUpperCase()}>{currencyName.toUpperCase()}</option>)
+  const handleSwitchValues = () => {
+    setFromCurrency(toCurrency)
+    setToCurrency(fromCurrency)
+    setFromValue(toValue)
+    setToValue(fromValue)
+  }
+
+  const currencyOptions = currencyNames.map((currencyName, key) => (
+    <option key={key} value={currencyName.toUpperCase()}>
+      {currencyName.toUpperCase()}
+    </option>
+  ))
+
+  const fromDescription = `${fromValue} ${getCurrencyName(fromCurrency)} equals`
+  const toDescription = `${toValue} ${getCurrencyName(toCurrency)}`
 
   return (
-    <div className='container'>
-      <div className='currency-section'>
-        <select value={fromCurrency} onChange={handleFromCurrencyChange}>
-          {currencyOptions}
-        </select>
-        <input type="number" value={fromValue} onChange={handleFromValueChange} min="0" />
+    <>
+      <div className="currency-section">
+        <label className="from-description">
+          {fromValue} {getCurrencyName(fromCurrency)} <span>equals</span>
+        </label>
+        <label className="to-description">
+          <span>{toValue}</span> {getCurrencyName(toCurrency)}
+        </label>
       </div>
-      <div className='currency-section'>
-        <select value={toCurrency} onChange={handleToCurrencyChange}>
-          {currencyOptions}
-        </select>
-        <input type="number" value={toValue} onChange={handleToValueChange} min="0" />
+
+      <div className="container">
+        <div className="currency-section">
+          <select value={fromCurrency} onChange={handleFromCurrencyChange}>
+            {currencyOptions}
+          </select>
+          <input
+            type="number"
+            value={fromValue}
+            onChange={handleFromValueChange}
+            min="0"
+          />
+        </div>
+        <button className="switch-button" onClick={handleSwitchValues}>
+          <img src="icons/switch.svg" alt="switcher" />
+        </button>
+        <div className="currency-section">
+          <select value={toCurrency} onChange={handleToCurrencyChange}>
+            {currencyOptions}
+          </select>
+          <input
+            type="number"
+            value={toValue}
+            onChange={handleToValueChange}
+            min="0"
+          />
+        </div>
       </div>
-    </div>
-  );
-};
+    </>
+  )
+}
 
-
-export default Header;
+export default Header
