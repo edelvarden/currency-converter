@@ -1,4 +1,4 @@
-const useCurrencyConversion = (amount = 0, fromCurrency, toCurrency, rates) => {
+export const currencyConversion = (amount = 0, fromCurrency, toCurrency, rates) => {
   if (amount < 0) {
     return 0
   }
@@ -9,5 +9,3 @@ const useCurrencyConversion = (amount = 0, fromCurrency, toCurrency, rates) => {
 
   return convertedAmount.toFixed(3)
 }
-
-export default useCurrencyConversion

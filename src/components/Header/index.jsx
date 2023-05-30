@@ -1,6 +1,6 @@
-import useCurrencyConversion from "hooks/useCurrencyConversion"
 import useGetExchangeRates from "hooks/useGetExchangeRates"
 import { useState } from "react"
+import { currencyConversion } from "services/currencyConversion"
 import { getCurrencyName } from "services/getCurrencyName"
 import "./Header.css"
 
@@ -15,22 +15,22 @@ const Header = () => {
 
   const handleFromCurrencyChange = (event) => {
     setFromCurrency(event.target.value)
-    setToValue(useCurrencyConversion(fromValue, event.target.value, toCurrency, currencyRates))
+    setToValue(currencyConversion(fromValue, event.target.value, toCurrency, currencyRates))
   }
 
   const handleToCurrencyChange = (event) => {
     setToCurrency(event.target.value)
-    setFromValue(useCurrencyConversion(toValue, event.target.value, fromCurrency, currencyRates))
+    setFromValue(currencyConversion(toValue, event.target.value, fromCurrency, currencyRates))
   }
 
   const handleFromValueChange = (event) => {
     setFromValue(event.target.value)
-    setToValue(useCurrencyConversion(event.target.value, fromCurrency, toCurrency, currencyRates))
+    setToValue(currencyConversion(event.target.value, fromCurrency, toCurrency, currencyRates))
   }
 
   const handleToValueChange = (event) => {
     setToValue(event.target.value)
-    setFromValue(useCurrencyConversion(event.target.value, toCurrency, fromCurrency, currencyRates))
+    setFromValue(currencyConversion(event.target.value, toCurrency, fromCurrency, currencyRates))
   }
 
   const handleSwitchValues = () => {
