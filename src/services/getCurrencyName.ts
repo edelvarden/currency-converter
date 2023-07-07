@@ -1,4 +1,4 @@
-const currencyNames = {
+const currencyNames: any = {
   AED: "United Arab Emirates Dirham",
   AFN: "Afghan Afghani",
   ALL: "Albanian Lek",
@@ -171,6 +171,6 @@ const currencyNames = {
   ZWL: "Zimbabwean Dollar",
 }
 
-export const getCurrencyName = (currency) => {
-  return currencyNames[currency] || currencyNames
+export const getCurrencyName = (currency: string): string => {
+  return currencyNames[currency] || "Unknown Currency"
 }

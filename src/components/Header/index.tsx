@@ -1,34 +1,37 @@
-import useGetExchangeRates from "hooks/useGetExchangeRates"
-import { useState } from "react"
-import { currencyConversion } from "services/currencyConversion"
-import { getCurrencyName } from "services/getCurrencyName"
+import { FC, useState, useEffect } from "react"
 import "./Header.css"
+import { ExchangeRate } from "@/types"
+import { currencyConversion } from "@/services/currencyConversion"
+import { getCurrencyName } from "@/services/getCurrencyName"
 
-const Header = () => {
-  const currencyRates = useGetExchangeRates()
-  const currencyNames = Object.keys(currencyRates)
+interface HeaderProps {
+  currencyRates: ExchangeRate | null
+}
 
-  const [fromCurrency, setFromCurrency] = useState("USD")
-  const [toCurrency, setToCurrency] = useState("UAH")
-  const [fromValue, setFromValue] = useState(0)
-  const [toValue, setToValue] = useState(0)
+const Header: FC<HeaderProps> = ({ currencyRates }) => {
+  const currencyNames = currencyRates && Object.keys(currencyRates)
 
-  const handleFromCurrencyChange = (event) => {
+  const [fromCurrency, setFromCurrency] = useState<string>("USD")
+  const [toCurrency, setToCurrency] = useState<string>("UAH")
+  const [fromValue, setFromValue] = useState<number>(0)
+  const [toValue, setToValue] = useState<number>(0)
+
+  const handleFromCurrencyChange = (event: React.ChangeEvent<HTMLElement>): void => {
     setFromCurrency(event.target.value)
     setToValue(currencyConversion(fromValue, event.target.value, toCurrency, currencyRates))
   }
 
-  const handleToCurrencyChange = (event) => {
+  const handleToCurrencyChange = (event: React.ChangeEvent<HTMLElement>): void => {
     setToCurrency(event.target.value)
     setFromValue(currencyConversion(toValue, event.target.value, fromCurrency, currencyRates))
   }
 
-  const handleFromValueChange = (event) => {
+  const handleFromValueChange = (event: React.ChangeEvent<HTMLElement>): void => {
     setFromValue(event.target.value)
     setToValue(currencyConversion(event.target.value, fromCurrency, toCurrency, currencyRates))
   }
 
-  const handleToValueChange = (event) => {
+  const handleToValueChange = (event: React.ChangeEvent<HTMLElement>): void => {
     setToValue(event.target.value)
     setFromValue(currencyConversion(event.target.value, toCurrency, fromCurrency, currencyRates))
   }
@@ -40,11 +43,13 @@ const Header = () => {
     setToValue(fromValue)
   }
 
-  const currencyOptions = currencyNames.map((currencyName, key) => (
-    <option key={key} value={currencyName.toUpperCase()}>
-      {currencyName.toUpperCase()}
-    </option>
-  ))
+  const currencyOptions =
+    currencyNames &&
+    currencyNames.map((currencyName, key) => (
+      <option key={key} value={currencyName.toUpperCase()}>
+        {currencyName.toUpperCase()}
+      </option>
+    ))
 
   const fromDescription = `${fromValue} ${getCurrencyName(fromCurrency)} equals`
   const toDescription = `${toValue} ${getCurrencyName(toCurrency)}`
