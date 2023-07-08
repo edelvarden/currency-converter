@@ -3,7 +3,7 @@ import axios from "axios"
 import { DebouncedFunc, throttle } from "lodash"
 import { ExchangeRate } from "@/types"
 
-const API_URL = "https://api.exchangerate-api.com/v4/latest/UAH"
+const API_URL = "https://api.exchangerate-api.com/v4/latest/USD"
 const THROTTLE_DELAY = 1000
 
 const useExchangeRate = (): ExchangeRate | null => {
